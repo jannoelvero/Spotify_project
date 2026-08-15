@@ -870,8 +870,3 @@ The project therefore demonstrates how Python, SQL, relational database design, 
 
 **Dr. Jan Noel Vero**
 
-Data Analytics Project
-
-Ironhack Data Analytics Bootcamp
-
-2026
