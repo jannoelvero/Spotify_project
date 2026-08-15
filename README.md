@@ -2,128 +2,156 @@
 
 ## Project Overview
 
-This project analyzes Spotify track data to identify the factors associated with track popularity.
+Spotify Track Popularity Analytics is an end to end data analytics project that investigates the factors associated with track popularity.
 
-The project follows a complete data analytics workflow using Python, MySQL, and Tableau. The raw datasets were inspected, cleaned, transformed, analyzed, loaded into a relational MySQL database, normalized into multiple related tables, and visualized through an interactive Tableau dashboard.
+The project combines **Python, MySQL, relational database design, SQL, and Tableau** to transform raw Spotify data into business focused insights and an interactive analytics dashboard.
 
-The main analytical question is:
+The central analytical question is:
 
-**What factors are associated with track popularity on Spotify?**
+> **What factors are associated with track popularity on Spotify?**
 
-The analysis examines artist popularity, artist followers, explicit content, track duration, album characteristics, genres, release periods, artists, and individual tracks.
+The analysis examines artist popularity, artist followers, explicit content, track duration, album characteristics, genres, release periods, artist performance, and individual track performance.
 
 ---
 
-## Project Objectives
+## Project Workflow
 
-The project aims to:
-
-1. Clean and prepare Spotify track data for analysis.
-2. Validate data quality and remove inconsistencies.
-3. Perform exploratory data analysis using Python.
-4. Investigate ten research questions related to track popularity.
-5. Validate analytical results using SQL.
-6. Design a normalized relational database.
-7. Create an Entity Relationship Diagram.
-8. Build an interactive Tableau dashboard.
-9. Translate analytical findings into business insights.
+```text
+Raw Spotify Data
+        ↓
+Python Data Inspection
+        ↓
+Data Cleaning and Transformation
+        ↓
+Exploratory Data Analysis
+        ↓
+Research Questions
+        ↓
+MySQL Database
+        ↓
+SQL Analysis and Validation
+        ↓
+Database Normalization
+        ↓
+Entity Relationship Diagram
+        ↓
+Tableau Dashboard
+        ↓
+Business Insights
+```
 
 ---
 
 ## Technology Stack
 
-| Tool | Purpose |
+| Technology | Purpose |
 | --- | --- |
-| Python | Data cleaning, transformation, EDA, statistical analysis |
+| Python | Data cleaning, transformation, EDA, and statistical analysis |
 | Pandas | Data manipulation and aggregation |
 | NumPy | Numerical operations |
 | Matplotlib | Data visualization |
-| Jupyter Notebook | Python analysis environment |
-| MySQL | Database storage and SQL analysis |
+| Seaborn | Exploratory visualization |
+| Jupyter Notebook | Interactive Python analysis |
+| MySQL | Data storage and SQL analysis |
 | MySQL Workbench | Database management and ERD development |
-| Tableau Desktop | Dashboard development and visualization |
-| Git | Version control |
-| GitHub | Project repository and documentation |
+| SQLAlchemy | Python to MySQL integration |
+| PyMySQL | MySQL database driver |
+| Tableau Desktop | Dashboard development |
+| Git | Local version control |
+| GitHub | Repository and portfolio documentation |
+| uv | Python dependency and environment management |
 
 ---
 
-# 1. Data Preparation
+# Dataset
 
-The project began with Spotify track data containing information about tracks, artists, albums, popularity, followers, genres, duration, explicit content, and release dates.
+The source data contains Spotify track, artist, and album information.
 
-The datasets were inspected in Python to understand:
+Important variables include:
 
-1. Dataset dimensions
-2. Column names
-3. Data types
-4. Missing values
-5. Duplicate records
-6. Unique identifiers
-7. Numerical distributions
-8. Categorical values
+```text
+track_id
+track_name
+track_number
+track_popularity
+track_duration_ms
+explicit
+artist_name
+artist_popularity
+artist_followers
+artist_genres
+album_id
+album_name
+album_release_date
+album_total_tracks
+album_type
+```
 
-The datasets were then cleaned and prepared for analysis.
-
----
-
-# 2. Data Cleaning
-
-The cleaning process included:
-
-1. Standardizing column names.
-2. Checking missing values.
-3. Checking duplicate records.
-4. Validating track identifiers.
-5. Converting numerical fields to appropriate data types.
-6. Standardizing release information.
-7. Converting track duration into minutes.
-8. Validating popularity measures.
-9. Preparing explicit content indicators.
-10. Cleaning artist genre information.
-11. Creating analytical fields such as release year.
-12. Preparing the final dataset for SQL and Tableau.
-
-The final cleaned dataset contained:
+After data cleaning and validation, the final analytical dataset contained:
 
 **8,775 tracks**
 
-This cleaned dataset became the primary analytical dataset used throughout the project.
+Additional analytical fields were created, including:
+
+```text
+track_duration_min
+release_year
+```
 
 ---
 
-# 3. Exploratory Data Analysis
+# Data Cleaning and Preparation
 
-Exploratory Data Analysis was conducted in Python to understand the structure and behavior of the Spotify data.
+Python and Pandas were used to inspect, clean, transform, and validate the source data.
 
-The analysis focused on:
+The cleaning workflow included:
 
-1. Track popularity
-2. Artist popularity
-3. Artist followers
-4. Explicit content
-5. Track duration
-6. Album type
-7. Album size
-8. Artist genres
-9. Release periods
-10. Artist performance
-11. Individual track performance
+1. Inspecting dataset dimensions and column structures
+2. Reviewing data types
+3. Identifying missing values
+4. Investigating duplicate records
+5. Validating track and album identifiers
+6. Standardizing analytical columns
+7. Converting track duration from milliseconds to minutes
+8. Validating release dates
+9. Creating release year
+10. Cleaning artist and genre information
+11. Checking popularity measures
+12. Preparing the final dataset for MySQL and Tableau
 
-Descriptive statistics, grouped aggregations, correlations, and rankings were used to identify patterns in the dataset.
+Missing information was not automatically replaced with invented values. Where source information was genuinely unavailable, null values were retained when appropriate.
 
 ---
 
-# 4. Research Questions
+# Exploratory Data Analysis
 
-Ten research questions were developed to investigate the factors associated with Spotify track popularity.
+Exploratory Data Analysis was conducted before developing the final business conclusions.
 
-## RQ1. Artist Popularity and Track Popularity
+The analysis examined:
+
+* Track popularity
+* Artist popularity
+* Artist followers
+* Explicit content
+* Track duration
+* Album type
+* Album size
+* Artist genres
+* Release periods
+* Artist performance
+* Individual track performance
+
+The exploratory analysis was then structured into ten research questions.
+
+---
+
+# Research Questions and Results
+
+## RQ1: Artist Popularity vs Track Popularity
 
 **Question**
 
 Is artist popularity associated with track popularity?
-
-A correlation analysis was conducted between artist popularity and track popularity.
 
 **Result**
 
@@ -131,19 +159,19 @@ Correlation:
 
 **r = 0.45**
 
-**Interpretation**
+**Finding**
 
-Artist popularity has a moderate positive relationship with track popularity.
+Artist popularity shows a moderate positive relationship with track popularity.
 
-Tracks from more popular artists tend to have higher popularity scores, although artist popularity alone does not fully explain track performance.
+Tracks from more popular artists tend to have higher popularity scores, although artist popularity alone does not explain track performance.
 
 ---
 
-## RQ2. Artist Followers and Track Popularity
+## RQ2: Artist Followers vs Track Popularity
 
 **Question**
 
-Is the number of artist followers associated with track popularity?
+Is artist follower count associated with track popularity?
 
 **Result**
 
@@ -151,42 +179,41 @@ Correlation:
 
 **r = 0.23**
 
-**Interpretation**
+**Finding**
 
-Artist followers have a weak positive relationship with track popularity.
+Artist followers show a weak positive relationship with track popularity.
 
-Follower count alone is therefore a relatively weak predictor of individual track performance.
+The comparison between RQ1 and RQ2 suggests that artist popularity is more strongly associated with individual track popularity than raw follower count.
 
-An artist may have a large follower base without every released track achieving equally high popularity.
+| Variable | Correlation with Track Popularity |
+| --- | ---: |
+| Artist Popularity | 0.45 |
+| Artist Followers | 0.23 |
 
 ---
 
-## RQ3. Explicit Content and Track Popularity
+## RQ3: Explicit Content vs Track Popularity
 
 **Question**
 
-Do explicit tracks have different average popularity compared with non explicit tracks?
+Do explicit and non explicit tracks differ in average popularity?
 
 | Content Type | Track Count | Average Popularity |
 | --- | ---: | ---: |
-| Explicit | 2,191 | 57.54 |
 | Non Explicit | 6,584 | 50.49 |
+| Explicit | 2,191 | 57.54 |
 
-**Interpretation**
+**Finding**
 
-Explicit tracks have higher average popularity in this dataset.
+Explicit tracks recorded approximately **7.05 points higher average popularity** than non explicit tracks in this dataset.
 
-The difference is approximately:
-
-**7.05 popularity points**
-
-This represents an association within the dataset and should not be interpreted as evidence that explicit content causes higher popularity.
+This represents an association and should not be interpreted as evidence that explicit content causes higher popularity.
 
 ---
 
-## RQ4. Track Duration and Popularity
+## RQ4: Track Duration vs Popularity
 
-Tracks were grouped according to duration.
+Tracks were grouped into four duration categories.
 
 | Duration Group | Track Count | Average Popularity |
 | --- | ---: | ---: |
@@ -195,37 +222,33 @@ Tracks were grouped according to duration.
 | Long | 2,026 | 54.53 |
 | Very Long | 169 | 47.53 |
 
-**Interpretation**
+**Finding**
 
 Long tracks recorded the highest average popularity at **54.53**.
 
-Standard length tracks also performed strongly at **52.61**.
-
-Short tracks had substantially lower average popularity.
+Short tracks showed substantially lower average popularity at **38.38**.
 
 ---
 
-## RQ5. Album Type and Track Popularity
-
-Track popularity was compared across different album types.
+## RQ5: Album Type vs Track Popularity
 
 | Album Type | Average Popularity |
 | --- | ---: |
 | Album | 55.53 |
-| Compilation | 40.51 |
 | Single | 46.11 |
+| Compilation | 40.51 |
 
-**Interpretation**
+**Finding**
 
-Tracks classified as part of albums had the highest average popularity in the dataset.
+Tracks classified as part of albums recorded the highest average popularity.
 
-Compilation tracks recorded the lowest average popularity.
+Compilation tracks showed the lowest average popularity.
 
 ---
 
-## RQ6. Album Size and Track Popularity
+## RQ6: Album Size vs Track Popularity
 
-Albums were grouped according to the number of tracks they contained.
+Albums were grouped according to their number of tracks.
 
 | Album Size | Average Popularity |
 | --- | ---: |
@@ -234,29 +257,27 @@ Albums were grouped according to the number of tracks they contained.
 | Large | 56.15 |
 | Very Large | 47.09 |
 
-**Interpretation**
+**Finding**
 
-Medium and large releases showed the strongest average track popularity.
+Medium and large releases recorded the highest average track popularity.
 
 Very small and very large releases performed lower on average.
 
 ---
 
-## RQ7. Genre Performance
+## RQ7: Genre Performance
 
-Artist genre information was separated into individual genres for analysis.
+Artist genre information required additional transformation because individual artists may be associated with multiple genres.
 
-The genre analysis produced:
+The normalized SQL database produced:
 
-**7,660 track to genre records**
+**424 unique genres**
 
 and:
 
-**424 unique genres in the normalized SQL database**
+**7,660 track to genre relationships**
 
-To reduce the effect of genres represented by very few observations, only genres with at least 30 track records were considered in the main ranking.
-
-Top genres included:
+To reduce distortion from genres represented by very few observations, the main ranking required at least **30 track records per genre**.
 
 | Genre | Track Count | Average Popularity |
 | --- | ---: | ---: |
@@ -271,19 +292,17 @@ Top genres included:
 | Hyperpop | 34 | 66.35 |
 | K Pop | 93 | 66.17 |
 
-**Interpretation**
+**Finding**
 
-Latin oriented genres were strongly represented among the highest popularity genre categories.
+Latin oriented genres were strongly represented among the highest popularity categories.
 
-Trap Latino recorded the highest average popularity among genres meeting the minimum track threshold.
+Trap Latino recorded the highest average popularity among genres meeting the minimum observation requirement.
 
 ---
 
-## RQ8. Release Decade and Track Popularity
+## RQ8: Release Decade vs Track Popularity
 
-Tracks were grouped according to release decade.
-
-| Decade | Track Count | Mean Popularity | Median Popularity |
+| Decade | Track Count | Average Popularity | Median Popularity |
 | --- | ---: | ---: | ---: |
 | 1950 | 7 | 53.57 | 58.0 |
 | 1960 | 50 | 52.66 | 57.5 |
@@ -294,19 +313,19 @@ Tracks were grouped according to release decade.
 | 2010 | 3,827 | 51.96 | 58.0 |
 | 2020 | 3,368 | 51.99 | 57.0 |
 
-The 1950s were excluded from the main Tableau comparison because the decade contained only seven tracks.
+The 1950s were excluded from the main Tableau comparison because only seven tracks were represented.
 
-**Interpretation**
+**Finding**
 
-Among decades with sufficient representation, tracks from the 1970s had the highest average popularity.
+Among sufficiently represented decades, tracks from the 1970s recorded the highest average popularity.
 
-The dataset is heavily concentrated in the 2010s and 2020s, so decade comparisons should be interpreted with consideration of the uneven sample sizes.
+The dataset is heavily concentrated in the 2010s and 2020s, so comparisons between decades should be interpreted with consideration of unequal sample sizes.
 
 ---
 
-## RQ9. Top Performing Artists
+## RQ9: Top Performing Artists
 
-Artists with at least five tracks were ranked according to average track popularity.
+Artists were required to have at least **five tracks** in the dataset before being included in the ranking.
 
 | Artist | Track Count | Average Popularity |
 | --- | ---: | ---: |
@@ -321,17 +340,17 @@ Artists with at least five tracks were ranked according to average track popular
 | Tame Impala | 13 | 75.00 |
 | Lola Young | 8 | 74.75 |
 
-**Interpretation**
+**Finding**
 
 Alex Warren recorded the highest average track popularity among artists meeting the minimum five track requirement.
 
-The minimum track threshold helps prevent artists represented by only one unusually popular track from dominating the ranking.
+The threshold prevents artists represented by only one unusually popular track from dominating the ranking.
 
 ---
 
-## RQ10. Most Popular Tracks
+## RQ10: Top Tracks
 
-Tracks were ranked according to track popularity.
+Individual tracks were ranked according to track popularity.
 
 | Track | Artist | Popularity | Release Year |
 | --- | --- | ---: | ---: |
@@ -346,7 +365,7 @@ Tracks were ranked according to track popularity.
 | CANCELLED! | Taylor Swift | 93 | 2025 |
 | Actually Romantic | Taylor Swift | 93 | 2025 |
 
-**Interpretation**
+**Finding**
 
 Recent releases dominate the highest popularity rankings in the dataset.
 
@@ -354,58 +373,60 @@ Taylor Swift is particularly prominent among the highest ranked individual track
 
 ---
 
-# 5. MySQL Database
+# MySQL Database
 
-After completing the Python cleaning process, the cleaned Spotify dataset was loaded into MySQL.
+After Python cleaning and transformation, the final analytical data was loaded into MySQL.
 
-The primary analytical table was:
+The primary analytical and staging table is:
 
 ```text
 spotify_tracks
+```
 
-The table contains 8,775 track records.
+The table contains:
 
-The MySQL database was used to:
+**8,775 records**
 
-Validate Python results.
-Perform SQL based analytical queries.
-Create relational tables.
-Establish primary and foreign keys.
-Normalize the dataset.
-Create the database model used for the ERD.
-6. Database Normalization
+SQL was used to validate the Python analysis and reproduce the main business queries.
 
-The original analytical dataset contains artist, album, track, and genre information within a single structure.
+---
 
-To demonstrate relational database design, the data was normalized into five core tables:
+# Database Normalization
 
+The analytical table is convenient for analysis but contains repeated artist, album, and genre information.
+
+The database was therefore normalized into five core relational tables:
+
+```text
 artists
 albums
 tracks
 genres
 track_genres
+```
 
-The original spotify_tracks table was retained as an analytical and staging table.
+The original `spotify_tracks` table was retained as the analytical and staging table.
 
-Artists Table
+---
+
+## Relational Structure
+
+### Artists
 
 Stores unique artist information.
 
-Key fields include:
-
+```text
 artist_id
 artist_name
 artist_popularity
 artist_followers
+```
 
-artist_id serves as the primary key.
-
-Albums Table
+### Albums
 
 Stores album information.
 
-Key fields include:
-
+```text
 album_id
 album_name
 album_release_date
@@ -413,17 +434,13 @@ release_year
 album_total_tracks
 album_type
 artist_id
+```
 
-album_id serves as the primary key.
+### Tracks
 
-artist_id serves as a foreign key linking albums to artists.
+Stores track level information.
 
-Tracks Table
-
-Stores individual track information.
-
-Key fields include:
-
+```text
 track_id
 track_name
 track_number
@@ -432,371 +449,429 @@ explicit
 track_duration_min
 album_id
 artist_id
+```
 
-track_id serves as the primary key.
-
-album_id links tracks to albums.
-
-artist_id links tracks to artists.
-
-Genres Table
+### Genres
 
 Stores unique genre categories.
 
-Key fields include:
-
+```text
 genre_id
 genre_name
+```
 
-The normalized SQL database contains:
+### Track Genres
 
-424 genres
+Acts as the junction table between tracks and genres.
 
-Track Genres Table
-
-Because one track can be associated with genre information that produces multiple track to genre relationships, a junction table was created.
-
+```text
 track_id
 genre_id
+```
 
-Together these fields represent the track to genre relationship.
+The junction table contains:
 
-The table contains:
+**7,660 track to genre relationships**
 
-7,660 track to genre relationships
+Relational integrity checks returned:
 
-Integrity checks confirmed:
-
+```text
 Missing Track Relationships: 0
 Missing Genre Relationships: 0
-7. Entity Relationship Model
+```
 
-The final normalized relational model contains five entities:
+Two track records retained null artist relationships because artist information was unavailable in the source data rather than artificially assigning an artist.
 
+---
+
+# Entity Relationship Diagram
+
+The final normalized ERD contains five core entities:
+
+```text
 ARTISTS
-    |
-    | one to many
-    |
+   |
+   | one to many
+   ↓
 ALBUMS
-    |
-    | one to many
-    |
+   |
+   | one to many
+   ↓
 TRACKS
-    |
-    | one to many
-    |
+   |
+   | one to many
+   ↓
 TRACK_GENRES
-    |
-    | many to one
-    |
+   |
+   | many to one
+   ↓
 GENRES
+```
 
-Artists also have a direct one to many relationship with tracks.
+Artists also have a direct relationship with tracks.
 
-The track_genres table acts as the junction table connecting tracks and genres.
+The ERD was generated using MySQL Workbench through database reverse engineering.
 
-The ERD was created in MySQL Workbench using the reverse engineering functionality.
+The `spotify_tracks` staging table remains in MySQL but was intentionally excluded from the final normalized ERD.
 
-The original spotify_tracks analytical table was intentionally excluded from the final normalized ERD.
+> Add the exported ERD image here after saving it to the `figures` directory.
 
-8. SQL Analysis
+```markdown
+![Spotify ERD](figures/spotify_erd.png)
+```
 
-SQL was used to reproduce and validate the analytical findings generated in Python.
+---
+
+# SQL Analysis
+
+SQL was used as a second analytical layer to validate the findings produced in Python.
 
 The SQL analysis covered:
 
-Artist popularity and track popularity
-Artist followers and track popularity
-Explicit versus non explicit content
-Track duration groups
-Album types
-Album sizes
-Genre performance
-Release decades
-Top performing artists
-Top performing tracks
+1. Artist popularity and track popularity
+2. Artist followers and track popularity
+3. Explicit content
+4. Track duration
+5. Album type
+6. Album size
+7. Genre performance
+8. Release decade
+9. Top performing artists
+10. Top performing tracks
 
-This provided an additional validation layer between the Python analysis and Tableau visualization.
+Using both Python and SQL provided additional validation of the analytical results.
 
-9. Tableau Dashboard
+---
 
-The final visualization stage was completed in Tableau Desktop using the MySQL database.
+# Tableau Dashboard
 
-The primary Tableau analytical source was:
+The final visualization layer was developed in Tableau Desktop using the MySQL database.
 
+The primary Tableau analytical source is:
+
+```text
 spotify_tracks
+```
 
-A separate relational Tableau data source was used for genre analysis:
+A second relational data source was created specifically for genre analysis:
 
+```text
 tracks
+    ↓
 track_genres
+    ↓
 genres
+```
 
-This prevented the many to many genre relationships from unnecessarily duplicating records in the main analytical dataset.
+This prevents the many to many genre relationships from unnecessarily duplicating records in the primary analytical source.
 
-Dashboard KPIs
+---
 
-The dashboard contains four primary KPIs:
+## Dashboard KPIs
 
-KPI	Result
-Total Tracks	8,775
-Total Artists	2,546
-Average Track Popularity	52.25
-Total Albums	5,314
-Dashboard Visualizations
+The dashboard contains four headline KPIs:
 
-The Tableau dashboard contains visualizations covering:
+| KPI | Value |
+| --- | ---: |
+| Total Tracks | 8,775 |
+| Total Artists | 2,546 |
+| Average Track Popularity | 52.25 |
+| Total Albums | 5,314 |
 
-RQ1
+---
+
+## Dashboard Visualizations
+
+The dashboard includes visualizations for all ten research questions.
+
+### RQ1
 
 Artist Popularity vs Track Popularity
 
 Scatter plot with linear trend line.
 
-RQ2
+### RQ2
 
 Artist Followers vs Track Popularity
 
 Scatter plot with linear trend line.
 
-RQ3
+### RQ3
 
 Explicit vs Non Explicit Track Popularity
 
-Bar chart.
+Bar chart comparing average popularity.
 
-RQ4
+### RQ4
 
 Track Duration vs Popularity
 
-Bar chart ordered:
+Ordered as:
 
+```text
 Short
 Standard
 Long
 Very Long
+```
 
-RQ5
+### RQ5
 
 Album Type vs Popularity
 
-Bar chart.
+Bar chart comparing average popularity across album types.
 
-RQ6
+### RQ6
 
 Album Size vs Popularity
 
-Bar chart ordered:
+Ordered as:
 
+```text
 Small
 Medium
 Large
 Very Large
+```
 
-RQ7
+### RQ7
 
 Top Genres by Average Track Popularity
 
-Horizontal ranking chart.
+Genre ranking with a minimum 30 track requirement.
 
-RQ8
+### RQ8
 
 Average Track Popularity by Release Decade
 
-Bar chart.
+The 1950s were excluded from the primary visualization because of insufficient representation.
 
-RQ9
+### RQ9
 
 Top Artists by Average Track Popularity
 
-Horizontal ranking chart.
+Artists required at least five tracks.
 
-RQ10
+### RQ10
 
 Top Tracks by Popularity
 
-Horizontal ranking chart using:
+Track popularity uses the maximum popularity measure rather than summing popularity values.
 
-MAX Track Popularity
+> Add the final Tableau dashboard screenshot here after saving it to the `figures` directory.
 
-This prevents duplicate track name records from incorrectly summing popularity scores.
+```markdown
+![Spotify Analytics Dashboard](figures/spotify_dashboard.png)
+```
 
-10. Key Findings
+---
 
-The analysis produced several important findings.
+# Key Business Insights
 
-Artist popularity matters more than follower count
+## Artist Popularity Is More Informative Than Follower Count
 
-Artist popularity has a moderate positive relationship with track popularity at r = 0.45.
+Artist popularity has a moderate relationship with track popularity at **0.45**, compared with only **0.23** for artist followers.
 
-Artist followers have a weaker relationship at r = 0.23.
+Follower count alone therefore provides limited information about the performance of an individual track.
 
-This suggests that follower count alone does not adequately represent the likelihood of individual track popularity.
+## Explicit Tracks Show Higher Average Popularity
 
-Explicit tracks perform higher on average
+Explicit tracks recorded an average popularity of **57.54**, compared with **50.49** for non explicit tracks.
 
-Explicit tracks recorded an average popularity of 57.54, compared with 50.49 for non explicit tracks.
+## Track Duration Shows Performance Differences
 
-Track duration shows meaningful differences
+Long tracks recorded the highest average popularity at **54.53**.
 
-Long tracks recorded the highest average popularity at 54.53, while short tracks recorded substantially lower average popularity at 38.38.
+Short tracks recorded substantially lower average popularity at **38.38**.
 
-Album characteristics matter
+## Release Structure Matters
 
-Tracks from albums recorded higher average popularity than tracks classified as singles or compilations.
+Tracks associated with albums recorded higher average popularity than singles and compilations.
 
-Medium and large albums also showed higher average track popularity than small and very large releases.
+Medium and large albums also showed stronger average track popularity than small and very large releases.
 
-Genre performance varies considerably
+## Genre Performance Varies Considerably
 
-Trap Latino and Urbano Latino recorded the highest average popularity among genres meeting the minimum representation requirement.
+Trap Latino, Urbano Latino, and Reggaeton were among the strongest genres by average track popularity after applying the minimum observation threshold.
 
-Historical popularity is not linear
+## Historical Performance Is Not Linear
 
 The 1970s recorded the highest average popularity among sufficiently represented decades.
 
-However, the dataset contains considerably more tracks from recent decades, particularly the 2010s and 2020s.
+However, the dataset contains considerably more tracks from recent decades, which should be considered when interpreting historical comparisons.
 
-Artist performance is concentrated
+---
 
-Several artists achieved substantially higher average track popularity than the overall dataset average of 52.25.
+# Business Applications
 
-Alex Warren recorded an average of 83.40 among artists represented by at least five tracks.
+The findings could support analytical work involving:
 
-11. Business Insights
+* Music catalog performance
+* Artist benchmarking
+* Release strategy
+* Genre portfolio analysis
+* Content performance monitoring
+* Playlist strategy
+* Marketing prioritization
+* Music discovery analysis
 
-The results suggest that track popularity is associated with several interacting factors rather than a single characteristic.
+The results represent associations within the analyzed dataset and should not be interpreted as proof of causal relationships.
 
-Artist popularity appears more strongly associated with track performance than follower count.
+---
 
-Genre positioning also shows substantial differences in average popularity, particularly among Latin oriented genres.
+# Repository Structure
 
-Release characteristics matter as well. Album type, album size, and track duration all show differences in average popularity.
-
-These findings could support:
-
-Music catalog analysis
-Artist benchmarking
-Release strategy evaluation
-Genre portfolio analysis
-Content performance monitoring
-Playlist and discovery strategy
-Marketing prioritization
-
-The results should be interpreted as descriptive associations within the analyzed dataset rather than causal relationships.
-
-12. Project Workflow
-
-The complete analytical pipeline was:
-
-Raw Spotify Data
-        ↓
-Python Data Inspection
-        ↓
-Data Cleaning
-        ↓
-Data Transformation
-        ↓
-Exploratory Data Analysis
-        ↓
-Research Questions
-        ↓
-Cleaned Dataset
-        ↓
-MySQL Database
-        ↓
-SQL Analysis
-        ↓
-Database Normalization
-        ↓
-ERD
-        ↓
-Tableau
-        ↓
-Interactive Analytics Dashboard
-        ↓
-Business Insights
-13. Repository Structure
-
-A recommended project structure is:
-
+```text
 spotify_project/
 │
 ├── data/
 │   ├── raw/
 │   └── clean/
 │
-├── notebooks/
-│   ├── data_cleaning.ipynb
-│   └── spotify_analysis.ipynb
-│
-├── sql/
-│   ├── 01_create_database.sql
-│   ├── 02_create_tables.sql
-│   ├── 03_load_data.sql
-│   ├── 04_normalization.sql
-│   └── 05_analysis_queries.sql
-│
 ├── figures/
-│   ├── spotify_erd.png
-│   └── spotify_dashboard.png
 │
-├── tableau/
-│   └── spotify_dashboard.twbx
+├── notebooks/
 │
-└── README.md
+├── sql_scripts/
+│
+├── src/
+│   └── __init__.py
+│
+├── .gitignore
+├── config.yaml
+├── pyproject.toml
+├── README.md
+├── spotify_project.twb
+└── uv.lock
+```
 
-The actual repository structure may differ depending on the final organization of the project files.
+Local development directories and the Python virtual environment are intentionally excluded from version control.
 
-14. Data Quality and Analytical Considerations
+---
 
-Several considerations are important when interpreting the analysis.
+# Project Setup
 
-Unequal group sizes
+## 1. Clone the Repository
 
-Some genres and decades contain substantially more tracks than others.
+```bash
+git clone YOUR_REPOSITORY_URL
+cd spotify_project
+```
+
+## 2. Install Dependencies
+
+The project uses `uv` for Python environment and dependency management.
+
+```bash
+uv sync
+```
+
+This installs the dependencies defined in:
+
+```text
+pyproject.toml
+```
+
+using the resolved versions stored in:
+
+```text
+uv.lock
+```
+
+## 3. Activate the Environment
+
+On macOS or Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+## 4. Launch Jupyter
+
+```bash
+jupyter lab
+```
+
+The notebooks can then be opened from the `notebooks` directory.
+
+---
+
+# Database Configuration
+
+Project configuration is stored in:
+
+```text
+config.yaml
+```
+
+The MySQL configuration uses:
+
+```text
+Host: 127.0.0.1
+Port: 3306
+Database: spotify_db
+```
+
+Database passwords and other credentials are intentionally excluded from the repository.
+
+Credentials should be supplied locally rather than stored in source control.
+
+---
+
+# Data and Analytical Considerations
+
+## Unequal Sample Sizes
+
+Genres, decades, and artists have different numbers of observations.
 
 Minimum observation thresholds were therefore applied where appropriate.
 
-Popularity is not causality
+## Association Does Not Mean Causation
 
-Relationships such as artist popularity versus track popularity describe association.
+The relationships identified in the project describe statistical and descriptive associations.
 
-They do not demonstrate that one variable directly causes another.
+They do not establish that one variable directly causes higher track popularity.
 
-Current popularity bias
+## Popularity Is Time Sensitive
 
-Spotify popularity represents platform performance and may favor currently active or recently popular tracks.
+Spotify popularity reflects platform performance and may favor currently active or recently popular music.
 
-This should be considered when comparing tracks across historical periods.
+This should be considered when comparing tracks from different historical periods.
 
-Genre complexity
+## Genre Complexity
 
-Artists may belong to multiple genres.
+Artists can be associated with multiple genres.
 
-Genre analysis therefore required normalization and a junction table rather than treating the original genre string as a single category.
+Genre analysis therefore required a normalized many to many relational structure rather than treating the original genre field as a single category.
 
-15. Conclusion
+---
 
-This project demonstrates an end to end data analytics workflow using Python, SQL, relational database design, and Tableau.
+# Conclusion
 
-Starting from raw Spotify data, the project progressed through data cleaning, exploratory analysis, research question development, SQL validation, database normalization, ERD creation, and interactive dashboard development.
+This project demonstrates a complete data analytics workflow from raw data preparation to business visualization.
 
-The analysis indicates that Spotify track popularity is associated with multiple characteristics.
+Python was used for data cleaning, transformation, exploratory analysis, and statistical investigation.
 
-Artist popularity shows a stronger relationship with track popularity than artist follower count. Explicit tracks have higher average popularity within the dataset. Track duration, album type, album size, genre, release period, and artist characteristics also show meaningful differences in performance.
+MySQL was used for data storage, SQL validation, relational database normalization, and integrity testing.
 
-Rather than identifying a single determinant of popularity, the project demonstrates that track performance reflects a combination of artist strength, content characteristics, release strategy, genre positioning, and temporal factors.
+MySQL Workbench was used to develop the Entity Relationship Diagram.
 
-Author
+Tableau was used to transform the analytical results into an interactive dashboard covering ten research questions and four headline KPIs.
 
-Dr. Jan Noel Vero
+The results indicate that Spotify track popularity is associated with multiple factors rather than a single characteristic.
+
+Artist popularity shows a stronger relationship with track popularity than follower count. Explicit content, track duration, album characteristics, genre, release period, and artist performance also show meaningful differences within the analyzed dataset.
+
+The project therefore demonstrates how Python, SQL, relational database design, and business intelligence tools can be integrated into a single end to end analytics workflow.
+
+---
+
+# Author
+
+**Dr. Jan Noel Vero**
 
 Data Analytics Project
 
 Ironhack Data Analytics Bootcamp
 
 2026
-
-
-One thing I would add before you push this to GitHub is the **actual ERD image and Tableau dashboard screenshot** under the relevant sections. That will make the README much stronger as a portfolio piece because a recruiter can understand the entire Python to SQL to Tableau workflow without opening every project file. 
